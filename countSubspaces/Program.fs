@@ -29,12 +29,13 @@ let genTup() =
 
 [<EntryPoint>]
 let main _ =
-    set [for t1 in genTup() do
+    seq {for t1 in genTup() do
          for t2 in genTup() do
          let s = genSubspace t1 t2
-         if Set.count s = FIELD_SIZE * FIELD_SIZE then
-            yield s]
-    |> Set.count
-    |> printfn "There are %d subspaces"
+         yield s}
+    |> Set.ofSeq
+    |> Set.toList
+    |> List.countBy (fun s -> Set.count s)
+    |> printfn "There are %A subspaces"
     0
 
