@@ -78,7 +78,7 @@ let rec shunting_yard (s : State) =
            reduce_rest s.reduce
 
    match s.Input with
-   | x::inputRest ->
+   | x::_ ->
        match x with
        | Number ->
            shunting_yard s.reduceNumber
