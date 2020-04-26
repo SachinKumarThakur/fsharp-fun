@@ -17,6 +17,9 @@ let printGenerator p =
     let lst = findGenerator p
     printfn "%d & %d & %A\\ \hline" p (List.head lst) lst
 
-let main() = 
+[<EntryPoint>]
+let main _ = 
     [3; 5; 7; 11; 13; 17; 19]
     |> List.map printGenerator
+    |> ignore
+    0
