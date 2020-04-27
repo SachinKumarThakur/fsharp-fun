@@ -1,71 +1,91 @@
-﻿open System
+﻿module SortedArr =
+    type SortedArr = int array
+    let build (lst: SortedArr[]): SortedArr =
+        Seq.concat lst
+        |> Seq.distinct
+        |> Seq.toArray
+
+
+
+open System
+open System.Collections.Generic
+open SortedArr
 
 type Digraph = 
-    { nodes: string list;
-    adjacency: Map<string, string list>; }
+    {size: int;
+    labels: Map<string, int>;
+    adjacency: int array array; //adjacency[i] is the neighbors of the ith node
+    costMap: Dictionary<int, SortedArr>}
 
 
-
-let createTransposeEdges sl = 
-    let tailLength = List.length sl - 1
+let createTransposeEdges labels sl = 
+    let tailLength = Array.length sl - 1
     let sink = 
-        List.head sl
-        |> List.replicate tailLength
+        Map.find (Array.head sl) labels
+        |> Array.replicate tailLength
     let sources = 
-        List.tail sl
-    List.zip sources sink
+        Array.tail sl
+        |> Array.map (fun s -> Map.find s labels)
+    Array.zip sources sink
 
-let createMapFromEdgeList el = 
+let createMapFromEdgeList (el: ('T * 'T)[]) = 
     el
-    |> List.groupBy fst
-    |> List.map (fun (u,l) -> (u, List.map snd l))
-    |> Map.ofList
+    |> Array.groupBy fst
+    |> Array.map (fun (u,l) -> (u, Array.map snd l))
+    |> Map.ofArray
 
-let createTransposeGraph sll = 
-    let graphNodes = List.map List.head sll
-    let adj = 
-        List.collect createTransposeEdges sll
-        |> createMapFromEdgeList
-    {nodes = graphNodes; adjacency = adj;}
-
-
-let countNumChildren node costMap graph = 
-    let mutable costMap = costMap
-    let rec dfs node = 
-        match Map.tryFind node costMap with
-        | Some (s) -> s
-        | None ->
-            match Map.tryFind node graph.adjacency with
-            | None -> 
-                // Node is a leaf, so add to costMap with val 1
-                let s = Set.add node Set.empty
-                costMap <- Map.add node s costMap
-                s
-            | Some(lst) ->
-                let s = 
-                    lst
-                    |> List.map dfs
-                    |> List.reduce (Set.union)
-                    |> Set.add node
-                costMap <- Map.add node s costMap
-                s
-    dfs node |> ignore
-    costMap
-
-
-let costOfModules g = 
-    let mutable costMap = Map.empty
-    g.nodes
-    |> List.iter (fun node ->
-        match Map.containsKey node costMap with
-        | true -> ()
-        | false -> 
-            costMap <- countNumChildren node costMap g
+let makeFixedSizeMap size m =
+    [0..size-1]
+    |> List.map (fun i -> 
+        match Map.tryFind i m with
+        | Some(l) -> l
+        | None -> Array.empty
     )
-    costMap
-    |> Map.map (fun _ v -> Set.count v)
+    |> Array.ofList
+    
+
+let createTransposeGraph size (sll: string[][]) : Digraph = 
+    let nodes = Array.map Array.head sll
+    assert (nodes.Length = size)
+    let labels =
+        Array.zip nodes [|0..size-1|]
+        |> Map.ofArray
+    let adj = 
+        sll
+        |> Array.collect (createTransposeEdges labels)
+        |> createMapFromEdgeList
+        |> makeFixedSizeMap size
+    {size=size; labels = labels; adjacency = adj;
+    costMap = new Dictionary<int, SortedArr>();}
 
 
+
+let costOfModules (graph: Digraph) = 
+    let rec dfs (node: int) = 
+        let found, value = graph.costMap.TryGetValue node
+        if found then value else
+            let adj = graph.adjacency.[node]
+            match adj.Length with
+            | 0 -> 
+                // Node is a leaf, so add itself to costMap
+                let (s: SortedArr) = [|node|]
+                graph.costMap.Add(node, s)
+                s
+            | _ ->
+                let s = 
+                    adj
+                    |> Array.map dfs
+                    |> Array.append [|[|node|]|]
+                    |> SortedArr.build
+                graph.costMap.Add(node, s)
+                s
+    for i in 0..graph.size-1 do
+        let found = graph.costMap.ContainsKey i 
+        if found then () else dfs i |> ignore
+    graph
+
+
+(*
 module Test = 
     let testing = 
         [
@@ -123,26 +143,32 @@ module Test =
         sll
         |> List.iter (String.concat " " >> printfn "%s")
 
+*)
 
+let printDigraph (g: Digraph): unit = 
+    for KeyValue(label, node) in g.labels do
+        let beneath = (g.costMap.Item node)
+        printfn "%s: %A" label (Array.length beneath)
         
 let runOnInput() = 
     let numLines = Console.ReadLine() |> int
-    [1..numLines]
-    |> List.map (fun _ -> Console.ReadLine().Split(' ') |> List.ofArray)
-    |> createTransposeGraph
+    [|1..numLines|]
+    |> Array.map (fun _ -> Console.ReadLine().Split(' '))
+    |> createTransposeGraph numLines
     |> costOfModules
-    |> Map.iter (fun k v -> printfn "%s, %d" k v)
+    |> printDigraph
 
-let printRandomGraph p n = 
-    printfn "%d" n
-    Test.makeRandomList p n
-    |> Test.printStringList
+
+//let printRandomGraph p n = 
+//    printfn "%d" n
+//    Test.makeRandomList p n
+//    |> Test.printStringList
 
 
 [<EntryPoint>]
 let main argv =
     match Array.length argv with
     | 0 -> runOnInput()
-    | 2 -> printRandomGraph(float argv.[0]) (int argv.[1])
-    | _ -> failwith "Enter no arguments or 2 arguments" |> ignore
-    0 // return an integer exit code
+    //| 2 -> printRandomGraph(float argv.[0]) (int argv.[1])
+    // | _ -> failwith "Enter no arguments" |> ignore
+    0   // Return 0;

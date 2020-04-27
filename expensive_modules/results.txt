@@ -1,2 +1,5 @@
 C++ took ~12s on test_big_sparse.in
 F# took ~58s on test_big_sparse.in
+
+Update: with basically a total rewrite to imperative style, F# now beats C++ with 8.2s on test_big_sparse.in. 
+Bear in mind that the C++ is unoptimized.
