@@ -1,14 +1,16 @@
-﻿module SortedArr =
-    type SortedArr = int array
-    let build (lst: SortedArr[]): SortedArr =
-        Seq.concat lst
-        |> Seq.distinct
-        |> Seq.toArray
-
-
-
-open System
+﻿open System
 open System.Collections.Generic
+
+module SortedArr =
+    type SortedArr = HashSet<Int16>
+    let build (lst: SortedArr[]): SortedArr =
+        let d = Array.head lst
+        for i in 1..(Array.length lst - 1) do
+            d.UnionWith lst.[i]
+        d
+
+
+
 open SortedArr
 
 type Digraph = 
@@ -65,17 +67,18 @@ let costOfModules (graph: Digraph) =
         let found, value = graph.costMap.TryGetValue node
         if found then value else
             let adj = graph.adjacency.[node]
+            let (s: SortedArr) = HashSet()
+            s.Add (int16 node) |> ignore
             match adj.Length with
             | 0 -> 
                 // Node is a leaf, so add itself to costMap
-                let (s: SortedArr) = [|node|]
                 graph.costMap.Add(node, s)
                 s
             | _ ->
                 let s = 
                     adj
                     |> Array.map dfs
-                    |> Array.append [|[|node|]|]
+                    |> Array.append [|s|]
                     |> SortedArr.build
                 graph.costMap.Add(node, s)
                 s
@@ -148,7 +151,7 @@ module Test =
 let printDigraph (g: Digraph): unit = 
     for KeyValue(label, node) in g.labels do
         let beneath = (g.costMap.Item node)
-        printfn "%s: %A" label (Array.length beneath)
+        printfn "%s: %A" label (beneath.Count)
         
 let runOnInput() = 
     let numLines = Console.ReadLine() |> int
