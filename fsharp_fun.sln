@@ -27,6 +27,8 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "shunting_yard", "shunting_y
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "expensive_modules", "expensive_modules\expensive_modules.fsproj", "{6EBF523C-07F1-4778-AD0F-CDF480269DB2}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "factoring_primes_eisenstein", "factoring_primes_eisenstein\factoring_primes_eisenstein.fsproj", "{024B3DAD-94F5-4F8D-A72E-2AB992C186C8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{6EBF523C-07F1-4778-AD0F-CDF480269DB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6EBF523C-07F1-4778-AD0F-CDF480269DB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6EBF523C-07F1-4778-AD0F-CDF480269DB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{024B3DAD-94F5-4F8D-A72E-2AB992C186C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{024B3DAD-94F5-4F8D-A72E-2AB992C186C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{024B3DAD-94F5-4F8D-A72E-2AB992C186C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{024B3DAD-94F5-4F8D-A72E-2AB992C186C8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
