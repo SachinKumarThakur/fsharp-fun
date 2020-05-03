@@ -2,7 +2,7 @@
   "profiles": {
     "expensive_modules": {
       "commandName": "Project",
-      "commandLineArgs": "< C:\\Users\\z124t\\source\\repos\\fsharp_fun\\fsharp-fun\\expensive_modules\\test_sparse_big.in"
+      "commandLineArgs": "< C:\\Users\\z124t\\source\\repos\\fsharp-fun\\expensive_modules\\test_2.in"
     }
   }
 }
