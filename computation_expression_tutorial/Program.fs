@@ -18,7 +18,7 @@ let divideBy b a =
     if b = 0 then None else Some(a/b)
 
 let divideByWorkflow init x y z =
-    let maybe = new MaybeBuilder()
+    let maybe = MaybeBuilder()
     maybe
         {
         let! a = init |> divideBy x
@@ -28,7 +28,7 @@ let divideByWorkflow init x y z =
         }
 
 let loggingWorkflow() =
-    let logger = new LoggingBuilder()
+    let logger = LoggingBuilder()
     logger {
         let! x = 42
         let! y = 43
@@ -60,7 +60,7 @@ type OrElseBuilder() =
     member this.Delay(f) = f()
 
 let multiLookup key =
-    let orElse = new OrElseBuilder()
+    let orElse = OrElseBuilder()
     orElse {
         return! map1.TryFind key
         return! map2.TryFind key
@@ -132,6 +132,22 @@ let strAdd str i =
 
 let (>>=) m f = Option.bind f m
 // let good = strToInt "1" >>= strAdd "2" >>= strAdd "3"
+
+// ------------- Lesson 4: Wrapper types pt 2
+type ListWorkflowBuilder() =
+    member this.Bind(list, f) =
+        list |> List.collect f
+
+    member this.Return(x) = [x]
+
+let listWorkflow = ListWorkflowBuilder()
+
+let added =
+    listWorkflow {
+        let! i = [1; 2; 3]
+        let! j = [10; 11; 12]
+        return i + j
+    }
 
 [<EntryPoint>]
 let main _ =
