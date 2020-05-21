@@ -36,7 +36,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		fsharplint.json = fsharplint.json
 	EndProjectSection
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "addBinaryStrings", "addBinaryStrings\addBinaryStrings.fsproj", "{4131695D-7096-4E30-92FD-50A63788761A}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "addBinaryStrings", "addBinaryStrings\addBinaryStrings.fsproj", "{4131695D-7096-4E30-92FD-50A63788761A}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "mostCommonWord", "mostCommonWord\mostCommonWord.fsproj", "{B45066E1-6B99-4166-AACF-7E942C56ECB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -104,6 +106,10 @@ Global
 		{4131695D-7096-4E30-92FD-50A63788761A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4131695D-7096-4E30-92FD-50A63788761A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4131695D-7096-4E30-92FD-50A63788761A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
