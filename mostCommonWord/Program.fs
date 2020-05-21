@@ -51,7 +51,7 @@ let mostCommonWordOnePass (bannedWords: Set<string>) (str: string) =
 
 [<EntryPoint>]
 let main argv =
-    let testing = "a, a, a, a, b,  c,b"
+    let testing = "a, a,a,   a, b,  c,b"
     let banned = set ["c"]
     assert (mostCommonWord banned testing = "a")
     assert (mostCommonWordOnePass banned testing = "a")
