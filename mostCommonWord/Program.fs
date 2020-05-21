@@ -1,10 +1,10 @@
 ﻿// Computes the most common word in a string
 // see: https://leetcode.com/problems/most-common-word/
 
-// Functional version, easiest to understand
-// Just splits the string by commas, trims whitespace
-// filters out the ones not in the banned dictionary
-// then does a max count
+//   Functional version, easiest to understand.
+//   Just splits the string by commas, trims whitespace,
+// filters out the ones not in the banned dictionary,
+// then does a max count.
 let mostCommonWord (bannedWords: Set<string>) (str: string)  =
     str.Split(',')
     |> Array.map (fun s -> s.Trim())
@@ -21,11 +21,11 @@ let alphabet =
 
 let ignored = [|','; ' '|]
 
-// imperative version, optimized so that every character in the string
-// is only processed once
-// not the most optimized, since it still does countBy and maxBy
+//   Imperative version, optimized so that every character in the string
+// is only processed once.
+//   Not the most optimized, since it still does countBy and maxBy
 // to compute the most common word, instead of computing it
-// on the fly, but the point is to show how parsing can be done recursively
+// on the fly, but the point is to show how parsing can be done recursively.
 let mostCommonWordOnePass (bannedWords: Set<string>) (str: string) =
     // create a one-pass lexer to identify words
     // Lex grammar:
@@ -55,4 +55,7 @@ let main argv =
     let banned = set ["c"]
     assert (mostCommonWord banned testing = "a")
     assert (mostCommonWordOnePass banned testing = "a")
+    let banned = set ["a"]
+    assert (mostCommonWord banned testing = "b")
+    assert (mostCommonWordOnePass banned testing = "b")
     0   // return 0
