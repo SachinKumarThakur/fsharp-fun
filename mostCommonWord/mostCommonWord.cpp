@@ -1,25 +1,34 @@
-string mostCommonWord(unordered_set<string> bannedWords, const string& str)
+string mostCommonWord(const string& str, vector<string> bannedWords)
 {
-    int n = str.size();
-    vector<char> ignored = {',', ' ', ';', '.'}; // add more here
+    // init hash set from vector
+    unordered_set<string> banned(bannedWords.begin(), bannedWords.end());
+    int len = int(str.size());
+    vector<char> ignored = {',', ' ', ';', '.', '\'', '?', '!'}; // add more here
     unordered_map<string, int> wordCount;
-    for (int i = 0; i != -1;) {
+    for (int idx = 0; idx != -1;) {
         // find the next punctuation mark
-        auto it = std::find_first_of(str.begin() + i, str.end(), ignored.begin(), ignored.end());
-        int nextEndpoint = (it == str.end()) ? n : it - str.begin();
+        auto it = std::find_first_of(str.begin() + idx, str.end(), ignored.begin(), ignored.end());
+        int nextEndpoint = (it == str.end()) ? len : int(it - str.begin());
         // substring
-        string text = str.substr(i, nextEndpoint - i);
+        string text = str.substr(idx, nextEndpoint - idx);
         // wrote this offhand, probably got some mistakes. Code to transform to lowercase
-        std::transform(text.begin(), text.end(), text.begin(), [](unsigned char c){ std::to_lower(c); });
+        std::transform(text.begin(), text.end(), text.begin(), ::tolower);
         // update dictionary
-        if (!bannedWords.contains(s)) wordCount[s]++;
-        // find the next alphabet
-        it = std::find_if(str.begin() + nextEndpoint, str.end(), [](char c){ std::isalnum(c); });
-        i = (it == str.end()) ? -1 : it - str.begin();
+        if (banned.find(text) == banned.end()) {
+            ++wordCount[text];
+        }
+        // find the next alphabetical char
+        it = std::find_if(str.begin() + nextEndpoint, str.end(), ::isalpha);
+        // advance i to the position of the next alphabetical char
+        idx = (it == str.end()) ? -1 : int(it - str.begin());
     }
-    return std::max_element(wordCount.begin(), wordCount.end(); 
-        [](auto& lhs, auto& rhs){return lhs.second < rhs.second;}
-        )->first;
+    // return an iterator pointing to the word with highest count
+    auto it = std::max_element(wordCount.begin(), wordCount.end(),
+              [] (auto& lhs, auto& rhs) {
+                return lhs.second < rhs.second;
+              }
+             );
+    return it->first;
 }
 
 /* F# code, for reference
