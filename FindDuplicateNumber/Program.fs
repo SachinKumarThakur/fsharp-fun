@@ -16,13 +16,12 @@ let findDuplicateNum (arr: int list): int =
             |> List.filter (fun x -> x < mid)
             |> List.length
         if numEltsLessThanMid < mid then
-            // Since there are less elements than we expect
-            // this means the duplicate number is to the right of mid
+            // This is the case we should have, in a normal list
+            // this means the duplicate number is >= mid
             search mid r
         else
             // Since there are more elements than we expect
-            // that are lesser than mid
-            // This means that the duplicate number is to the left of mid
+            // This means that the duplicate number is < mid
             search l mid
     search 1 (List.length arr)
 
