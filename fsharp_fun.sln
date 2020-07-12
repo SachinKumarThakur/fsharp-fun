@@ -38,7 +38,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "addBinaryStrings", "addBinaryStrings\addBinaryStrings.fsproj", "{4131695D-7096-4E30-92FD-50A63788761A}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "mostCommonWord", "mostCommonWord\mostCommonWord.fsproj", "{B45066E1-6B99-4166-AACF-7E942C56ECB3}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "mostCommonWord", "mostCommonWord\mostCommonWord.fsproj", "{B45066E1-6B99-4166-AACF-7E942C56ECB3}"
+EndProject
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "FindCelebrity", "FindCelebrity\FindCelebrity.fsproj", "{75F08FB5-4A6C-47BE-80F5-88094C9D15D3}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FindDuplicateNumber", "FindDuplicateNumber\FindDuplicateNumber.fsproj", "{5BF3F6A6-B791-435D-A40D-A16178B7A7B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,6 +114,14 @@ Global
 		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B45066E1-6B99-4166-AACF-7E942C56ECB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75F08FB5-4A6C-47BE-80F5-88094C9D15D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75F08FB5-4A6C-47BE-80F5-88094C9D15D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75F08FB5-4A6C-47BE-80F5-88094C9D15D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75F08FB5-4A6C-47BE-80F5-88094C9D15D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BF3F6A6-B791-435D-A40D-A16178B7A7B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BF3F6A6-B791-435D-A40D-A16178B7A7B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BF3F6A6-B791-435D-A40D-A16178B7A7B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BF3F6A6-B791-435D-A40D-A16178B7A7B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
